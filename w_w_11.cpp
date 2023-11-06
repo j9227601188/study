@@ -22,18 +22,6 @@ void look(int* arr, int size) {
 	}
 }
 
-auto randon_array(int size) //bead
-{
-	std::shared_ptr<int> int_array = std::make_shared<int>(size);
-	srand(time(NULL));
-	for (int i = 0; i < size; ++i)
-	{	
-		/*int_array[i] = rand() % 100;
-		std::cout << int_array[i] << " ";*/
-	}
-	return int_array;
-};
-
 int get_max(int* arr, int size) //good
 {
 	int max = arr[0];
@@ -222,10 +210,10 @@ void bubble_sort(int* arr, int size) {
 
 	std::cout << "	call is bubble_sort:\n";
 
-	for (int j = 0; j < size-1; j++) {
-		for (int i = 0; i < size - 1; i++) {
-			if (arr[i] > arr[i + 1]) {
-				swap(arr[i], arr[i + 1]);
+	for (int i = 0; i < size-1; i++) {
+		for (int j = 0; j < size - 1 - i; j++) {
+			if (arr[j] > arr[j + 1]) {
+				swap(arr[j], arr[j + 1]);
 			}
 		}
 	}
@@ -233,6 +221,59 @@ void bubble_sort(int* arr, int size) {
 	std::cout << "\n";
 }
 
+//Merge sort - WARNING
+void merge_for_merge_sort(int* arr, int l, int m, int r) {
+	int l_size_arr = m - l + 1;
+	int r_size_arr = r - m;
+
+	int* l_arr = new int[l_size_arr];
+	int* r_arr = new int[r_size_arr];
+
+	for (int i = 0; i < l_size_arr; i++) {
+		l_arr[i] = arr[l + i];
+	}
+	for (int i = 0; i < r_size_arr; i++) {
+		r_arr[i] = arr[m +1 + i];
+	}
+
+	int i = 0, j = 0, k = l; //indexes
+	while (i < l_size_arr && j < r_size_arr) {
+		if (l_arr[i] <= r_arr[j]) {
+			arr[k++] = l_arr[i++];	//or arr[k++] = l_arr[i++];
+			//i++;
+			//k++;
+		}
+		else {
+			arr[k++] = r_arr[j++];
+			//j++;
+			//k++;
+		}
+	}
+	while (i < l_size_arr) {
+		arr[k++] = l_arr[i++];
+	}
+	while (j < r_size_arr) {
+		arr[k++] = r_arr[j++];
+	}
+
+	delete[]l_arr;
+	delete[]r_arr;
+};
+
+void merge_sort(int* arr, int l, int r) {
+	if (l >= r)
+		return;
+
+	int m = (l + r - 1) / 2;
+	merge_sort(arr, l, m);
+	merge_sort(arr, m + 1, r);
+	merge_for_merge_sort(arr, l, m, r);
+};
+
+//Insertion sort
+void insertion_sort(int* arr, int size) {
+
+}
 //go
 void w_w_11()
 {
@@ -248,9 +289,13 @@ void w_w_11()
 	//bucket_sort(int_arr, SIZE_ARR);
 	//randomaizer(int_arr, SIZE_ARR);
 
-	bubble_sort(int_arr, SIZE_ARR);
+	//bubble_sort(int_arr, SIZE_ARR);
 
+	std::cout << "	merge_sort its run: \n";
+	merge_sort(int_arr, 0, SIZE_ARR - 1);
+	look(int_arr, SIZE_ARR);
 
+	//insertion_sort(int_arr, SIZE_ARR);
 		
 	delete[] int_arr;	
 }
