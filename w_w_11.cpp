@@ -16,6 +16,11 @@ void randomaizer(int* arr, int size)
 	std::cout << "\n";
 	for_randomaizer++;
 }
+void look(int* arr, int size) {
+	for (int i = 0; i < size; i++) {
+		std::cout << arr[i] << " ";
+	}
+}
 
 auto randon_array(int size) //bead
 {
@@ -205,6 +210,29 @@ void bucket_sort(int* arr, int n)
 	std::cout << "\n";
 };
 
+//Bubble sort
+
+void swap(int& a, int& b) {
+	int boofer = a;
+	a = b;
+	b = boofer;
+};
+
+void bubble_sort(int* arr, int size) {
+
+	std::cout << "	call is bubble_sort:\n";
+
+	for (int j = 0; j < size-1; j++) {
+		for (int i = 0; i < size - 1; i++) {
+			if (arr[i] > arr[i + 1]) {
+				swap(arr[i], arr[i + 1]);
+			}
+		}
+	}
+	look(arr, size);
+	std::cout << "\n";
+}
+
 //go
 void w_w_11()
 {
@@ -217,7 +245,11 @@ void w_w_11()
 	//radix_sort(int_arr, SIZE_ARR);
 	//randomaizer(int_arr, SIZE_ARR);
 
-	bucket_sort(int_arr, SIZE_ARR);
+	//bucket_sort(int_arr, SIZE_ARR);
+	//randomaizer(int_arr, SIZE_ARR);
+
+	bubble_sort(int_arr, SIZE_ARR);
+
 
 		
 	delete[] int_arr;	
