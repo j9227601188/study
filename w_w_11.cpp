@@ -205,6 +205,11 @@ void swap(int& a, int& b) {
 	a = b;
 	b = boofer;
 };
+void swap(int* a, int* b) {
+	int temp = *a;
+	*a = *b;
+	*b = temp;
+}
 
 void bubble_sort(int* arr, int size) {
 
@@ -290,6 +295,24 @@ void insertion_sort(int* arr, int size) {
 	std::cout << "\n";
 }
 
+//Selection sort
+void selection_sort(int* arr, int size) {
+	std::cout << "	insertion_sort its run: \n"; 
+	
+	for (int i = 0; i < size; i++) {
+		int min = i;
+		for (int j = i + 1; j < size; j++) {
+			if (arr[j] < arr[min]) {
+				min = j;
+			}
+		}
+		swap(&arr[i], &arr[min]);
+	}
+
+	look(arr, size);
+	std::cout << "\n";
+}
+
 //go
 void w_w_11()
 {
@@ -311,7 +334,9 @@ void w_w_11()
 	//merge_sort(int_arr, 0, SIZE_ARR - 1);
 	//look(int_arr, SIZE_ARR);
 
-	insertion_sort(int_arr, SIZE_ARR);
+	//insertion_sort(int_arr, SIZE_ARR);
+
+	selection_sort(int_arr, SIZE_ARR);
 		
 	delete[] int_arr;	
 }
