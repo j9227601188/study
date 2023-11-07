@@ -221,7 +221,7 @@ void bubble_sort(int* arr, int size) {
 	std::cout << "\n";
 }
 
-//Merge sort - WARNING
+//Merge sort
 void merge_for_merge_sort(int* arr, int l, int m, int r) {
 	int l_size_arr = m - l + 1;
 	int r_size_arr = r - m;
@@ -272,8 +272,24 @@ void merge_sort(int* arr, int l, int r) {
 
 //Insertion sort
 void insertion_sort(int* arr, int size) {
+	std::cout << "	insertion_sort its run: \n";
 
+	for (int i = 1; i < size; i++) {
+		int key = arr[i];
+		int j = i - 1;
+
+		// Сдвигаем элементы arr[0..i-1], которые больше чем key, на одну позицию вперед
+		// ваш код
+		while (arr[j] > key && j >= 0) {
+			arr[j + 1] = arr[j];
+			j--;
+		}
+		arr[j + 1] = key;
+	}
+	look(arr, size);
+	std::cout << "\n";
 }
+
 //go
 void w_w_11()
 {
@@ -291,11 +307,11 @@ void w_w_11()
 
 	//bubble_sort(int_arr, SIZE_ARR);
 
-	std::cout << "	merge_sort its run: \n";
-	merge_sort(int_arr, 0, SIZE_ARR - 1);
-	look(int_arr, SIZE_ARR);
+	//std::cout << "	merge_sort its run: \n";
+	//merge_sort(int_arr, 0, SIZE_ARR - 1);
+	//look(int_arr, SIZE_ARR);
 
-	//insertion_sort(int_arr, SIZE_ARR);
+	insertion_sort(int_arr, SIZE_ARR);
 		
 	delete[] int_arr;	
 }
