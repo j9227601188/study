@@ -463,8 +463,9 @@ void w_w_11()
 
 	//time_sort(int_arr, SIZE_ARR);
 
-	quick_sort(int_arr, 0, SIZE_ARR-1);
-	look(int_arr, SIZE_ARR);
+	//std::cout << "	quick_sort its run: \n";
+	//quick_sort(int_arr, 0, SIZE_ARR-1);
+	//look(int_arr, SIZE_ARR);
 		
 	delete[] int_arr;	
 }
