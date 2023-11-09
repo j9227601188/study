@@ -379,13 +379,12 @@ void insertionSortt(int* arr, int l, int r)
 }
 
 void time_sort(int* arr, int size) {
-	std::cout << "	insertion_sort its run:";
+	std::cout << "	time_sort its run:";
 	//RUN = 16 or 32 or 64 jf n = ...
 	const int RUN = 64;
 	
 	// сортируем отдельные подмассивы размера RUN
 	for (int i = 0; i < size; i += RUN)
-		// ваш код вызывающий сортировку вставками, с правильными аргументами
 		if ((i + RUN - 1) >= size)
 			insertionSortt(&arr[i], 0, (size % RUN) - 1);
 		else
@@ -411,7 +410,31 @@ void time_sort(int* arr, int size) {
 };
 
 //QuickSort
+int partition(int* arr, int low, int high) {
+	int pivot = arr[high];    // опорный элемент
+	int i = (low - 1);  // индекс наименьшего элемента
+	for (int j = low; j <= high - 1; j++)
+	{
+		// если текущий элемент меньше или равен опорнуму
+		if (arr[j] <= pivot)
+		{
+			i++;    // увеличиваем индекс минимального элемента
+			swap(&arr[i], &arr[j]);
+		}
+	}
+	swap(&arr[i + 1], &arr[high]);
+	return (i + 1);
+};
 
+void quick_sort(int* arr, int low, int high) {
+	if (low < high)
+	{
+		int pi = partition(arr, low, high); // индекс опорного элемента
+
+		quick_sort(arr, low, pi - 1);
+		quick_sort(arr, pi + 1, high);
+	}
+};
 
 //go
 void w_w_11()
@@ -438,7 +461,9 @@ void w_w_11()
 
 	//selection_sort(int_arr, SIZE_ARR);
 
-	time_sort(int_arr, SIZE_ARR);
+	//time_sort(int_arr, SIZE_ARR);
+
+	quick_sort(int_arr, 0, SIZE_ARR-1);
 	look(int_arr, SIZE_ARR);
 		
 	delete[] int_arr;	
