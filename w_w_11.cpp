@@ -1,5 +1,6 @@
 #include "Header.h"
 
+
 #define SIZE_ARR 100
 #define BIT_depth_of_numbers 10000
 
@@ -22,7 +23,7 @@ void look(int* arr, int size) {
 	}
 }
 
-int get_max(int* arr, int size) //good
+int get_max(int* arr, int size)
 {
 	int max = arr[0];
 	for (int i = 0; i < size; ++i)
@@ -227,7 +228,7 @@ void bubble_sort(int* arr, int size) {
 }
 
 //Merge sort
-void merge_for_merge_sort(int* arr, int l, int m, int r) {
+void merge_V2(int* arr, int l, int m, int r) {
 	int l_size_arr = m - l + 1;
 	int r_size_arr = r - m;
 
@@ -272,7 +273,7 @@ void merge_sort(int* arr, int l, int r) {
 	int m = (l + r - 1) / 2;
 	merge_sort(arr, l, m);
 	merge_sort(arr, m + 1, r);
-	merge_for_merge_sort(arr, l, m, r);
+	merge_V2(arr, l, m, r);
 };
 
 //Insertion sort
@@ -313,6 +314,105 @@ void selection_sort(int* arr, int size) {
 	std::cout << "\n";
 }
 
+//TimSort 
+
+void merge2(int* arr, int l, int m, int r){
+	int nl = m - l + 1;
+	int nr = r - m;
+
+	// создаем временные массивы
+	int* left = new int[nl];
+	int* right = new int[nr];
+
+	// копируем данные во временные массивы
+	for (int i = 0; i < nl; i++)
+		left[i] = arr[l + i];
+	for (int j = 0; j < nr; j++)
+		right[j] = arr[m + 1 + j];
+
+	int i = 0, j = 0;
+	int k = l;  // начало левой части
+
+	while (i < nl && j < nr) {
+		// записываем минимальные элементы обратно во входной массив
+		if (left[i] <= right[j]) {
+			arr[k] = left[i];
+			i++;
+		}
+		else {
+			arr[k] = right[j];
+			j++;
+		}
+		k++;
+	}
+	// записываем оставшиеся элементы левой части
+	while (i < nl) {
+		arr[k] = left[i];
+		i++;
+		k++;
+	}
+	// записываем оставшиеся элементы правой части
+	while (j < nr) {
+		arr[k] = right[j];
+		j++;
+		k++;
+	}
+	delete[]left;
+	delete[]right;
+};
+
+void insertionSortt(int* arr, int l, int r)
+{
+	for (int i = l + 1; i <= r; i++) {
+		int key = arr[i];
+		int j = i - 1;
+		// Сдвигаем элементы arr[0..i-1]
+		// которые больше чем key на одну позицию вперед
+		while (j >= l && arr[j] > key)
+		{
+			arr[j + 1] = arr[j];
+			j = j - 1;
+		}
+
+		arr[j + 1] = key;
+	}
+}
+
+void time_sort(int* arr, int size) {
+	std::cout << "	insertion_sort its run:";
+	//RUN = 16 or 32 or 64 jf n = ...
+	const int RUN = 64;
+	
+	// сортируем отдельные подмассивы размера RUN
+	for (int i = 0; i < size; i += RUN)
+		// ваш код вызывающий сортировку вставками, с правильными аргументами
+		if ((i + RUN - 1) >= size)
+			insertionSortt(&arr[i], 0, (size % RUN) - 1);
+		else
+			insertionSortt(&arr[i], 0, RUN - 1);
+
+	// Объединяем все отсортированные подмассивы
+	for (int size = RUN; size < size; size = 2 * size)
+	{
+		// Объединяем arr [left..left + size-1] и arr [left + size, left + 2 * size-1]
+		// После каждого слияния мы увеличиваем левый размер на 2
+		for (int left = 0; left < size; left += 2 * size)
+		{
+			// находим середину и правую границу
+			int mid = left + size - 1;
+			int right = std::min((left + 2 * size - 1), (size - 1));
+			if (mid > right)
+				mid = left;
+			// соединяем подмассивы arr[left.....mid] и arr[mid+1....right]
+			merge2(arr, left, mid, right);
+		}
+	}
+	std::cout << "\n";
+};
+
+//QuickSort
+
+
 //go
 void w_w_11()
 {
@@ -336,7 +436,10 @@ void w_w_11()
 
 	//insertion_sort(int_arr, SIZE_ARR);
 
-	selection_sort(int_arr, SIZE_ARR);
+	//selection_sort(int_arr, SIZE_ARR);
+
+	time_sort(int_arr, SIZE_ARR);
+	look(int_arr, SIZE_ARR);
 		
 	delete[] int_arr;	
 }
