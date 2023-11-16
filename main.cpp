@@ -2,5 +2,5 @@
 
 int main()
 {
-    w_w_11_6_fstream();
+    w_w_12();
 }

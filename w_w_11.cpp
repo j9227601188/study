@@ -1,6 +1,5 @@
 #include "Header.h"
 
-
 #define SIZE_ARR 100
 #define BIT_depth_of_numbers 10000
 
@@ -17,7 +16,7 @@ void randomaizer(int* arr, int size)
 	std::cout << "\n";
 	for_randomaizer++;
 }
-void look(int* arr, int size) {
+void look(int*& arr, int& size) {
 	for (int i = 0; i < size; i++) {
 		std::cout << arr[i] << " ";
 	}
@@ -426,7 +425,7 @@ int partition(int* arr, int low, int high) {
 	return (i + 1);
 };
 
-void quick_sort(int* arr, int low, int high) {
+void quick_sort(int* arr, int low, int high) { //high-1
 	if (low < high)
 	{
 		int pi = partition(arr, low, high); // индекс опорного элемента

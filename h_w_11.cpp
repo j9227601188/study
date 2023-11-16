@@ -1,7 +1,7 @@
 #include "Header.h"
 
 #define TEST_BASE_SIZE_BYTES 2'147'483'648			// 2 Gb
-#define TEST_BASE_NAME "test_array_1Mb.txt"				// E:\cpp\study\test_array.txt
+#define TEST_BASE_NAME "test_array_1Mb.txt"			// E:\cpp\study\test_array.txt
 
 void generating_array_v1() {
 	std::cout << "generating_array run:\n";
